@@ -1,0 +1,87 @@
+<?php
+// Personalize o cardápio alterando os dados abaixo.
+$pizza = [
+    'name' => 'Margherita da Casa',
+    'tagline' => 'A clássica, do nosso jeito.',
+    'description' => 'Molho de tomate da casa, mozzarella fresca, manjericão e um fio de azeite extravirgem.',
+    'price' => 'R$ 49,90',
+    'size' => '30 cm · serve 2 pessoas',
+    'image' => 'https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1400&q=85',
+    'model' => 'pizza.glb',
+];
+$e = static fn ($value) => htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+?>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3eb"><meta name="description" content="Pizza artesanal feita com ingredientes frescos e massa de fermentação lenta.">
+  <title><?= $e($pizza['name']) ?> — Forno & Folha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.4.0/model-viewer.min.js"></script>
+  <style>
+    :root{--ink:#24251f;--muted:#77776d;--cream:#f7f3eb;--paper:#fffdf9;--green:#284a37;--orange:#d97848;--line:#e8e0d5;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans)}a{color:inherit}.shell{width:min(1180px,100% - 56px);margin:auto}
+    .topbar{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #24251f18}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;letter-spacing:.02em}.brand-mark{width:36px;height:36px;border-radius:50%;background:var(--green);color:white;display:grid;place-items:center;font:600 19px var(--serif)}
+    .nav{display:flex;gap:30px;color:#68695f;font-size:13px}.nav a{text-decoration:none}.nav a:hover{color:var(--green)}.order-pill{border:1px solid var(--line);padding:10px 15px;border-radius:99px;background:#fff9;font-size:12px;font-weight:600}
+    .hero{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center;padding:56px 0 48px}.copy{padding:10px 0}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--green);font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}.eyebrow:before{content:'';width:25px;height:1px;background:currentColor}h1{max-width:520px;margin:18px 0 15px;font:500 clamp(44px,5.2vw,70px)/1.04 var(--serif);letter-spacing:-.04em}.intro{max-width:420px;margin:0 0 25px;color:var(--muted);font-size:15px;line-height:1.8}.rating{display:flex;align-items:center;gap:12px;margin-bottom:24px;color:#696a61;font-size:12px}.stars{color:#bd6a3e;letter-spacing:2px}.sep{width:3px;height:3px;border-radius:50%;background:#aaa}
+    .price-row{display:flex;align-items:center;gap:14px;max-width:430px;padding:19px 0;border-top:1px solid var(--line)}.price{font:500 29px var(--serif)}.size{color:var(--muted);font-size:12px}.actions{display:flex;gap:11px;align-items:center}.button{min-height:51px;padding:0 19px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 13px var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:.2s}.button:hover{transform:translateY(-2px)}.primary{background:var(--green);color:white}.primary:hover{background:#1e3d2c}.secondary{color:var(--ink);border-color:#d8d0c5;background:transparent}.hint{margin:13px 0 0;color:#89877e;font-size:11px}
+    .visual{position:relative;min-height:520px;border-radius:12px;overflow:hidden;background:#e6d7c2;box-shadow:0 20px 55px #54442d1c}.visual:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,#15161255);pointer-events:none}.visual img{display:block;width:100%;height:520px;object-fit:cover;filter:saturate(.9)}.photo-label{position:absolute;z-index:1;top:18px;left:18px;padding:9px 13px;border-radius:99px;background:#fffdf3e8;color:#55604f;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.visual-caption{position:absolute;z-index:1;bottom:22px;left:24px;color:white;font-size:12px}.visual-caption strong{display:block;margin-bottom:4px;font:500 23px var(--serif)}
+    .details{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:27px 0 38px;border-top:1px solid var(--line)}.detail{padding:0 22px;border-right:1px solid var(--line)}.detail:first-child{padding-left:0}.detail:last-child{border:0}.detail b{display:block;margin-bottom:7px;font-size:12px}.detail span{color:var(--muted);font-size:12px;line-height:1.6}
+    .overlay{position:fixed;inset:0;z-index:5;display:none;place-items:center;padding:20px;background:#161812b8}.overlay.show{display:grid}.dialog{width:min(460px,100%);padding:24px;border-radius:12px;background:var(--paper);box-shadow:0 20px 60px #0003}.dialog h2{margin:0 0 12px;font:600 27px var(--serif)}.dialog p{color:var(--muted);font-size:14px;line-height:1.7}.dialog model-viewer{display:block;width:100%;height:250px;margin:12px 0;border-radius:8px;background:#efe6d9;--poster-color:#efe6d9}.dialog-actions{display:flex;gap:9px;flex-wrap:wrap}.dialog .button{margin-top:4px}
+    @media(max-width:800px){.shell{width:min(100% - 40px,620px)}.nav{display:none}.hero{grid-template-columns:1fr;gap:26px;padding:32px 0 38px}.visual{grid-row:1;min-height:360px}.visual img{height:360px}.copy{grid-row:2}h1{font-size:54px}.details{gap:13px}.detail{padding:0 12px}.detail span{display:block}}
+    @media(max-width:480px){.shell{width:calc(100% - 34px)}.topbar{height:68px}.brand{font-size:15px}.brand-mark{width:32px;height:32px}.order-pill{padding:9px 11px;font-size:11px}.hero{padding-top:22px}.visual,.visual img{height:300px;min-height:300px}.photo-label{top:12px;left:12px;font-size:9px}.visual-caption{left:17px;bottom:17px}.visual-caption strong{font-size:20px}h1{font-size:46px}.intro{font-size:14px}.actions{align-items:stretch;flex-direction:column}.button{width:100%}.details{grid-template-columns:1fr;gap:18px;padding:24px 0}.detail,.detail:first-child{padding:0;border:0}.price-row{padding:16px 0}.rating{gap:8px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Forno e Folha, início"><span class="brand-mark">f</span> forno & folha</a>
+      <nav class="nav" aria-label="Navegação"><a href="#menu">Cardápio</a><a href="#ingredientes">Nossa cozinha</a><a href="#entrega">Entrega</a></nav>
+      <div class="order-pill">Seu pedido <span aria-hidden="true">·</span> 0</div>
+    </header>
+    <main id="top">
+      <section class="hero" id="menu" aria-labelledby="pizza-name">
+        <div class="copy"><div class="eyebrow">Da nossa cozinha</div>
+          <h1 id="pizza-name"><?= $e($pizza['name']) ?></h1><p class="intro"><?= $e($pizza['description']) ?></p>
+          <div class="rating"><span class="stars" aria-label="5 estrelas">★★★★★</span><span>4,9 (128 avaliações)</span><span class="sep"></span><span>Mais pedida</span></div>
+          <div class="price-row"><span class="price"><?= $e($pizza['price']) ?></span><span class="size"><?= $e($pizza['size']) ?></span></div>
+          <div class="actions"><button class="button primary" type="button" id="ar-button"><span aria-hidden="true">⌖</span> Ver na minha mesa</button><a class="button secondary" href="#ingredientes"><span aria-hidden="true">＋</span> Adicionar ao pedido</a></div>
+          <p class="hint">Experimente em realidade aumentada, direto no seu espaço.</p>
+        </div>
+        <div class="visual"><span class="photo-label">Feita na hora · forno a lenha</span><img src="<?= $e($pizza['image']) ?>" alt="Pizza Margherita com mozzarella, tomate e manjericão"><div class="visual-caption"><strong><?= $e($pizza['tagline']) ?></strong>Ingredientes frescos, massa de fermentação lenta.</div></div>
+      </section>
+      <section class="details" id="ingredientes" aria-label="Detalhes da pizza">
+        <div class="detail"><b>🍅 Ingredientes</b><span>Tomate italiano, mozzarella fresca e manjericão.</span></div><div class="detail"><b>♨️ Feita com calma</b><span>Massa de fermentação natural por 48 horas.</span></div><div class="detail" id="entrega"><b>🚲 Chega quentinha</b><span>Preparada na hora e entregue para você.</span></div>
+      </section>
+    </main>
+  </div>
+  <div class="overlay" id="ar-note" role="dialog" aria-modal="true" aria-labelledby="dialog-title"><div class="dialog"><h2 id="dialog-title">Pizza em 3D 🍕</h2>
+    <model-viewer id="pizza-model" src="<?= $e($pizza['model']) ?>" ar ar-modes="scene-viewer quick-look webxr" ar-scale="fixed" ar-placement="floor" camera-controls touch-action="pan-y" alt="Pizza Margherita de 30 centímetros em escala real" shadow-intensity="1" exposure="1.1"></model-viewer>
+    <p id="ar-message" aria-live="polite">Gire a pizza para ver os detalhes. Para posicioná-la no seu espaço, abra esta página por HTTPS em um celular compatível.</p>
+    <div class="dialog-actions"><button class="button primary" id="retry-ar" type="button">Tentar abrir a câmera</button><button class="button secondary" id="close-note" type="button">Fechar</button></div>
+  </div></div>
+  <script>
+    const model = document.querySelector('#pizza-model');
+    const note = document.querySelector('#ar-note');
+    const message = document.querySelector('#ar-message');
+    const showNote = text => { message.textContent = text; note.classList.add('show'); };
+    async function openAR() {
+      if (!model) return showNote('O visualizador 3D não está disponível. Confira se pizza.glb está na mesma pasta desta página.');
+      note.classList.add('show');
+      if (!model.loaded) { message.textContent = 'Carregando o modelo 3D. Aguarde um instante e tente novamente.'; return; }
+      if (!model.canActivateAR) { message.textContent = 'Este aparelho não oferece AR neste navegador. Tente Chrome no Android compatível ou Safari no iPhone. Você ainda pode girar a pizza em 3D.'; return; }
+      try { await model.activateAR(); }
+      catch (_) { showNote(window.isSecureContext ? 'Não foi possível abrir a câmera. Verifique a permissão e tente novamente.' : 'A realidade aumentada precisa de uma conexão HTTPS segura. Publique o site com HTTPS e tente novamente.'); }
+    }
+    document.querySelector('#ar-button').addEventListener('click', openAR);
+    document.querySelector('#retry-ar').addEventListener('click', openAR);
+    model.addEventListener('error', () => { message.textContent = 'Não consegui carregar pizza.glb. Confirme que o arquivo está publicado junto com a página.'; });
+    model.addEventListener('ar-status', event => { if (event.detail.status === 'failed') showNote('A realidade aumentada não iniciou. Verifique o HTTPS, a permissão da câmera e o suporte do celular.'); });
+    document.querySelector('#close-note').addEventListener('click', () => note.classList.remove('show'));
+    note.addEventListener('click', event => { if (event.target === note) note.classList.remove('show'); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') note.classList.remove('show'); });
+  </script>
+</body>
+</html>
